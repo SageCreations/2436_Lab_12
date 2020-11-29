@@ -77,15 +77,25 @@ int main() {
   bool found = false;
   std::string userFips;
   int key = 0;
+  int fipLoc = 0;
   do {
     menu();
     std::cin  >> input;
     switch (input) {
       case 1:
-        std::cout << "Please enter a vailid fips number: ";
+        std::cout << "\nPlease enter a vailid fips number: ";
         std::cin  >> userFips;
         key = hashFunc(userFips);
-        hashTable.search(*key, *places[500], *found);
+        //std::cout << "\nuser input: " << userFips << " / Key after hashfunc: " << key << std::endl;
+        //linear search algorithm for the win lol.
+        for (int i = 0; i < 500; i++) {
+          if (places[i].getFips() == userFips) {
+            fipLoc = i;
+            break;
+          }
+        }
+        //if 'fipLoc' remains as zero then 'found' will also remain false because the keys wont match in theory.
+        hashTable.search(key, places[fipLoc], found);
         if (found) {
           std::cout << "\nthe city was found\n" << std::endl;
         } else {
@@ -94,6 +104,9 @@ int main() {
         break;
       case 2:
         hashTable.print();
+        std::cout << "The length of the hashT is: " << hashTable.getLength() << std::endl;
+        // The length is giving me 500 so im assuming all 500 cities made it.
+        // The insert function only adds to length if the hash finds a slot to put it in.
         break;
       case 3:
         std::cout << "Program is exiting..." << std::endl;
@@ -102,13 +115,6 @@ int main() {
         std::cout << "Please choose one of the options above!" << std::endl;
     }
   } while (input != 3);
-
-
-
-
-
-
-
 
   return 0;
 } // ************* end of main. ***************************

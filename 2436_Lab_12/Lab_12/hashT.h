@@ -55,6 +55,9 @@ class hashT {
     void print() const;
     // Function to output the data.
 
+    int getLength();
+    // I added this to see if all the cities were being inserted or not.
+
     hashT(int size = 101);
     // constructor
     // Postcondition: Create the arrays HTTable and indexStatusList;
@@ -118,6 +121,8 @@ void hashT<elemType>::search(int& hashIndex, const elemType& rec,
     if (indexStatusList[hashIndex] == 1 && HTable[hashIndex] == rec) {
         hashIndex = hashIndex;
         found = true;
+        cout << "\n" << hashIndex << "  " << indexStatusList[hashIndex] << "  " << HTable[hashIndex] << endl;
+        //this line above was added by me to see if it was finding the correct city.
     } else
         found = false;
 }
@@ -152,6 +157,11 @@ void hashT<elemType>::print() const {
             cout << i << "  " << indexStatusList[i] << "  " << HTable[i] << endl;
 		}
 	}
+}
+
+template<class elemType>
+int hashT<elemType>::getLength() {
+    return length;
 }
 
 template <class elemType>
